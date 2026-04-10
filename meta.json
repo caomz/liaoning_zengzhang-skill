@@ -1,0 +1,119 @@
+{
+  "name": "liaoning-zengzhang",
+  "version": "1.0.0",
+  "displayName": "梁宁·增长思维30讲",
+  "description": "梁宁增长思维30讲技能：输入企业/产品/组织的增长困惑，自动执行六模块诊断框架，输出结构化增长诊断报告与行动建议",
+  "source": "梁宁·增长思维30讲",
+  "author": "AI Skills Team",
+  "license": "MIT",
+  "tags": [
+    "增长",
+    "战略",
+    "商业模式",
+    "组织诊断",
+    "用户运营",
+    "梁宁"
+  ],
+  "triggers": [
+    "如何增长",
+    "判断阶段",
+    "找破局点",
+    "商业模式分析",
+    "组织诊断",
+    "借势策略",
+    "用户深化",
+    "跨越周期",
+    "我在哪里",
+    "机会在哪",
+    "如何扩张",
+    "团队诊断"
+  ],
+  "modes": {
+    "quick": {
+      "name": "快速诊断",
+      "description": "输入一个问题，30秒定位核心模块+给出1-2个关键模型",
+      "estimatedTime": "30秒-2分钟"
+    },
+    "deep": {
+      "name": "深度咨询",
+      "description": "全面扫描六大模块，输出完整诊断报告+24个模型应用",
+      "estimatedTime": "15-30分钟"
+    }
+  },
+  "modules": [
+    {
+      "id": "growth-map",
+      "name": "增长地图",
+      "coreQuestion": "我在哪里？",
+      "models": ["企业定位模型"],
+      "stages": ["草莽", "腰部", "头部", "顶级"]
+    },
+    {
+      "id": "opportunity",
+      "name": "机会识别",
+      "coreQuestion": "如何找到破局点？",
+      "models": ["穷举发散法", "破局点公式", "爆品公式", "品牌护城河", "第二曲线"]
+    },
+    {
+      "id": "model",
+      "name": "模式设计",
+      "coreQuestion": "商业是否可持续？",
+      "models": ["商业模式三要素", "增强回路", "调节回路", "用户增长飞轮", "S2B2C"]
+    },
+    {
+      "id": "organization",
+      "name": "组织诊断",
+      "coreQuestion": "团队能否支撑？",
+      "models": ["组织五阶段", "关系四阶段", "权力三指标", "字节跳动飞轮"]
+    },
+    {
+      "id": "leverage",
+      "name": "借势策略",
+      "coreQuestion": "如何放大势能？",
+      "models": ["战略杠杆", "利益相关人地图", "闪电式扩张", "跨越周期机制"]
+    },
+    {
+      "id": "user",
+      "name": "用户深化",
+      "coreQuestion": "如何深化价值？",
+      "models": ["用户深度四层", "一横一纵框架"]
+    }
+  ],
+  "models": [
+    {"id": 1, "name": "企业定位模型", "category": "增长地图"},
+    {"id": 2, "name": "穷举发散法", "category": "机会识别"},
+    {"id": 3, "name": "破局点公式", "category": "机会识别"},
+    {"id": 4, "name": "爆品公式", "category": "机会识别"},
+    {"id": 5, "name": "品牌护城河", "category": "机会识别"},
+    {"id": 6, "name": "第二曲线", "category": "机会识别"},
+    {"id": 7, "name": "商业模式三要素", "category": "模式设计"},
+    {"id": 8, "name": "增强回路", "category": "模式设计"},
+    {"id": 9, "name": "调节回路", "category": "模式设计"},
+    {"id": 10, "name": "用户增长飞轮", "category": "模式设计"},
+    {"id": 11, "name": "连接器模式", "category": "模式设计"},
+    {"id": 12, "name": "整合服务模式", "category": "模式设计"},
+    {"id": 13, "name": "流量平台模式", "category": "模式设计"},
+    {"id": 14, "name": "产业中台S2B2C", "category": "模式设计"},
+    {"id": 15, "name": "组织五阶段", "category": "组织诊断"},
+    {"id": 16, "name": "关系四阶段", "category": "组织诊断"},
+    {"id": 17, "name": "权力三指标", "category": "组织诊断"},
+    {"id": 18, "name": "字节跳动飞轮", "category": "组织诊断"},
+    {"id": 19, "name": "战略杠杆", "category": "借势策略"},
+    {"id": 20, "name": "利益相关人地图", "category": "借势策略"},
+    {"id": 21, "name": "闪电式扩张", "category": "借势策略"},
+    {"id": 22, "name": "跨越周期机制", "category": "借势策略"},
+    {"id": 23, "name": "用户深度四层", "category": "用户深化"},
+    {"id": 24, "name": "一横一纵框架", "category": "用户深化"}
+  ],
+  "coreFormula": "增长能力 = 持续作出正确决定的能力",
+  "fileStructure": {
+    "entry": "SKILL.md",
+    "partA": "work.md",
+    "partB": "persona.md",
+    "metadata": "meta.json",
+    "tools": ["tools/growth_calculator.py"]
+  },
+  "dependencies": {
+    "python": ">=3.8"
+  }
+}
