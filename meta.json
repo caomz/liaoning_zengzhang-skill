@@ -1,8 +1,8 @@
 {
   "name": "liaoning-zengzhang",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "displayName": "梁宁·增长思维30讲",
-  "description": "梁宁增长思维30讲技能：输入企业/产品/组织的增长困惑，自动执行六模块诊断框架，输出结构化增长诊断报告与行动建议",
+  "description": "梁宁增长思维30讲技能：输入企业/产品/组织的增长困惑，自动执行Phase 0→3诊断流水线（入口分流→信息采集→模型诊断→质量验证），输出结构化增长诊断报告与行动建议。含六大模块、24个核心模型、诊断确认检查点和诚实边界。",
   "source": "梁宁·增长思维30讲",
   "author": "AI Skills Team",
   "license": "MIT",
@@ -12,7 +12,10 @@
     "商业模式",
     "组织诊断",
     "用户运营",
-    "梁宁"
+    "梁宁",
+    "破局点",
+    "第二曲线",
+    "闪电式扩张"
   ],
   "triggers": [
     "如何增长",
@@ -31,14 +34,35 @@
   "modes": {
     "quick": {
       "name": "快速诊断",
-      "description": "输入一个问题，30秒定位核心模块+给出1-2个关键模型",
-      "estimatedTime": "30秒-2分钟"
+      "description": "输入一个问题，定位核心模块+给出1-2个关键模型",
+      "estimatedTime": "2-5分钟",
+      "path": "Phase 1A"
     },
     "deep": {
       "name": "深度咨询",
-      "description": "全面扫描六大模块，输出完整诊断报告+24个模型应用",
-      "estimatedTime": "15-30分钟"
+      "description": "全面扫描六大模块，输出完整诊断报告+分阶段行动计划",
+      "estimatedTime": "15-30分钟",
+      "path": "Phase 1B"
+    },
+    "research": {
+      "name": "研究先行",
+      "description": "涉及具体企业/行业时，先WebSearch获取真实数据再诊断",
+      "estimatedTime": "视研究深度",
+      "path": "Phase 1C"
     }
+  },
+  "agenticProtocol": {
+    "phases": [
+      "Phase 0: 入口分流",
+      "Phase 0B: 需求诊断（模糊路径）",
+      "Phase 1: 信息采集与模块研究",
+      "Phase 1.5: 诊断确认检查点",
+      "Phase 2: 模型诊断与报告生成",
+      "Phase 3: 质量验证"
+    ],
+    "checkpoints": [
+      "Phase 1.5: 深度咨询路径的诊断摘要确认"
+    ]
   },
   "modules": [
     {
@@ -111,6 +135,15 @@
     "partA": "work.md",
     "partB": "persona.md",
     "metadata": "meta.json",
+    "examples": [
+      "examples/startup-diagnosis.md",
+      "examples/growth-strategy.md",
+      "examples/cross-cycle-analysis.md"
+    ],
+    "references": [
+      "references/methodology.md",
+      "references/case-studies.md"
+    ],
     "tools": ["tools/growth_calculator.py"]
   },
   "dependencies": {
