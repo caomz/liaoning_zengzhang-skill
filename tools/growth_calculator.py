@@ -13,6 +13,22 @@ import json
 from typing import Dict, List, Optional, Tuple
 
 
+def validate_score(value, name, min_val=1, max_val=5):
+    """验证分数输入"""
+    if not isinstance(value, (int, float)):
+        raise ValueError(f"{name} 必须是数字")
+    if value < min_val or value > max_val:
+        raise ValueError(f"{name} 必须在 {min_val}-{max_val} 之间")
+
+
+def validate_positive_int(value, name):
+    """验证正整数输入"""
+    if not isinstance(value, int) or isinstance(value, bool):
+        raise ValueError(f"{name} 必须是整数")
+    if value < 0:
+        raise ValueError(f"{name} 不能为负数")
+
+
 def score_breakthrough(breadth: int, frequency: int, control: int) -> Dict:
     """
     破局点公式计算
@@ -27,6 +43,10 @@ def score_breakthrough(breadth: int, frequency: int, control: int) -> Dict:
     返回：
         评分结果和建议
     """
+    validate_score(breadth, "相对广谱性")
+    validate_score(frequency, "高频性")
+    validate_score(control, "体验可控性")
+
     score = breadth * frequency * control
     max_score = 125  # 5*5*5
 
@@ -72,6 +92,10 @@ def evaluate_business_model(goal_score: int, elements_score: int,
     返回：
         健康度评估结果
     """
+    validate_score(goal_score, "目标清晰度")
+    validate_score(elements_score, "要素完整性")
+    validate_score(connection_score, "连接有效性")
+
     health_score = (goal_score * elements_score * connection_score) ** (1/3)
     max_score = 5.0
 
@@ -128,14 +152,26 @@ def analyze_user_depth(dau: int, mau: int, paying_users: int,
     返回：
         用户深度诊断结果
     """
+    validate_positive_int(dau, "日活跃用户数")
+    validate_positive_int(mau, "月活跃用户数")
+    validate_positive_int(paying_users, "付费用户数")
+    validate_positive_int(total_users, "总用户数")
+    validate_positive_int(ugc_count, "UGC内容数量")
+    if not isinstance(nps_score, int) or nps_score < -100 or nps_score > 100:
+        raise ValueError("NPS净推荐值必须在 -100 到 100 之间")
+
     # 计算关键比率
     stickiness = dau / mau if mau > 0 else 0  # 留存率
     pay_rate = paying_users / total_users if total_users > 0 else 0  # 付费率
 
-    # 判断当前层级
-    if nps_score > 50 and ugc_count > 1000:
+    # 判断当前层级 - 使用更合理的分层逻辑
+    if nps_score > 60:
         current_level = "共同体"
-        level_desc = "用户高度认同，主动传播"
+        level_desc = "用户极度认同，主动传播"
+        next_level = None
+    elif nps_score > 50 and ugc_count > 500:
+        current_level = "共同体"
+        level_desc = "用户高度认同，开始主动传播"
         next_level = None
     elif pay_rate > 0.2:
         current_level = "会员"
@@ -231,6 +267,10 @@ def diagnose_flywheel(core_delivery: int, reinforcement: int,
     返回：
         飞轮诊断结果
     """
+    validate_score(core_delivery, "核心交付清晰度")
+    validate_score(reinforcement, "增强回路强度")
+    validate_score(network_effect, "网络效应程度")
+
     flywheel_score = core_delivery * reinforcement * network_effect
     max_score = 125
 
@@ -238,17 +278,17 @@ def diagnose_flywheel(core_delivery: int, reinforcement: int,
     elements = {
         "核心交付": {
             "score": core_delivery,
-            "status": "✓" if core_delivery >= 4 else "⚠️" if core_delivery >= 3 else "❌",
+            "status": "[OK]" if core_delivery >= 4 else "[WARN]" if core_delivery >= 3 else "[FAIL]",
             "desc": "清晰" if core_delivery >= 4 else "模糊" if core_delivery < 3 else "一般"
         },
         "增强回路": {
             "score": reinforcement,
-            "status": "✓" if reinforcement >= 4 else "⚠️" if reinforcement >= 3 else "❌",
+            "status": "[OK]" if reinforcement >= 4 else "[WARN]" if reinforcement >= 3 else "[FAIL]",
             "desc": "强" if reinforcement >= 4 else "弱" if reinforcement < 3 else "一般"
         },
         "网络效应": {
             "score": network_effect,
-            "status": "✓" if network_effect >= 4 else "⚠️" if network_effect >= 3 else "❌",
+            "status": "[OK]" if network_effect >= 4 else "[WARN]" if network_effect >= 3 else "[FAIL]",
             "desc": "明显" if network_effect >= 4 else "不明显" if network_effect < 3 else "初步形成"
         }
     }
@@ -400,7 +440,7 @@ def interactive_mode():
             print_result(result2)
 
             print_header("3. 用户深度分析")
-            result3 = analyze_user_depth(10000, 50000, 3000, 100000, 500, 55)
+            result3 = analyze_user_depth(10000, 50000, 25000, 100000, 500, 55)
             print_result(result3)
 
             print_header("4. 增长飞轮诊断")
@@ -418,7 +458,7 @@ if __name__ == "__main__":
         sample_data = {
             "breakthrough": score_breakthrough(4, 5, 4),
             "business_model": evaluate_business_model(4, 3, 4),
-            "user_depth": analyze_user_depth(10000, 50000, 3000, 100000, 500, 55),
+            "user_depth": analyze_user_depth(10000, 50000, 25000, 100000, 500, 55),
             "flywheel": diagnose_flywheel(4, 4, 3)
         }
         print(json.dumps(sample_data, indent=2, ensure_ascii=False))

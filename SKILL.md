@@ -547,7 +547,7 @@ description: |
 
 | 工具 | 用途 | 调用方式 |
 |------|------|----------|
-| growth_calculator | 增长关键指标计算 | `python tools/growth_calculator.py` |
+| growth_calculator | 增长关键指标计算 | `python tools/growth_calculator.py [--batch]` |
 
 ## 经验规则库
 
